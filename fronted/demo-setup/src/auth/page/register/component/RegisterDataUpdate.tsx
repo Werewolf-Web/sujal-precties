@@ -85,11 +85,6 @@ const RegisterDataUpdate = () => {
                 <div key={editData?.id}>
                     <div className="p-8">
                         <h1 className="text-3xl font-bold mb-6">User Table</h1>
-                        <ButtonPrimary
-                            title="Back to Table"
-                            onClick={() => navigate('/user/table')}
-                            className="mb-4 px-4 py-2 text-sm"
-                        />
                         <form onSubmit={handleSubmit} >
                             <div className="w-69 mb-5">
                                 <InputType
@@ -140,20 +135,26 @@ const RegisterDataUpdate = () => {
                                 />
                                 <label > is active </label>
                             </div>
-                            <div className="text-center pt-2 w-50">
+                            <div className="flex gap-3">
+                            <div className="text-center pt-2">
                                 <ButtonPrimary
                                     title="Update"
                                     type="submit"
                                     className="w-full"
                                 />
                             </div>
+                            <div className="text-center pt-2 ">
+                                <ButtonPrimary
+                                    title="Back to Table"
+                                    onClick={() => navigate('/user/table')}
+                                    className="mb-4 px-4 py-2 text-sm"
+                                />
+                            </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             )}
-
-
-
         </>
     )
 }
