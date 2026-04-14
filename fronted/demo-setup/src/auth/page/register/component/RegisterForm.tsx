@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ButtonPrimary from "../../../../common-components/common-button/ButtonPrimary";
 import InputType from "../../../../common-components/common-input-type/InputType";
+import { Bounce, toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -15,18 +16,28 @@ const RegisterForm = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    await fetch("http://localhost:4000/register", {
+    // if (formData.password !== formData.confirmPassword) {
+    //   toast.error("Password not match", { position: "top-right", autoClose: 5000, theme: "dark", transition: Bounce });
+    //   return;
+    // }
+    const response = await fetch("http://localhost:4000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     });
-    // const data = await res.json();
-    // console.log(data);
+    const data = await response.json();
 
-    // Reset form and generate NEW ID for next registration
-    setFormData({
+    if (!response.ok) {
+      toast.error(data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        theme: "dark",
+        transition: Bounce,
+      });
+    } else {
+      setFormData({
       id: new Date().getTime().toString(),
       fullName: "",
       email: "",
@@ -34,6 +45,7 @@ const RegisterForm = () => {
       confirmPassword: "",
       is_active: false,
     });
+    }
   };
 
   const handleChange = (e: any) => {

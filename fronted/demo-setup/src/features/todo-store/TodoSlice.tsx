@@ -1,94 +1,58 @@
-import { useState } from "react";
-import { set } from "zod";
+// import { createSlice } from "@reduxjs/toolkit";
 
-const TodoSlice = () => {
-  const [addToDo, setAddToDo] = useState<string>("");
-  const [todoList, setTodoList] = useState<string[]>([]);
-  const [compliteTodoList, setCompliteTodoList] = useState<string[]>([]);
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit/react";
 
-  const handleToDo = () => {
-    if (addToDo.trim() === "") return;
-    setTodoList([...todoList, addToDo]);
-    setAddToDo("");
-  };
-  
-  const handleComplite=(item: string)=>{
-    setCompliteTodoList([...compliteTodoList,item])
-    const newTodoList=todoList.filter((todo)=>todo!==item)
-    setTodoList(newTodoList)
-  }
-    const handleCompliteReset=(item: string)=>{
-    setTodoList([...todoList,item])
-    const newCompliteTodoList=compliteTodoList.filter((todo)=>todo!==item)
-    setCompliteTodoList(newCompliteTodoList)
-  }
-  
-  console.log('Completed Todo List:', compliteTodoList);
-  return (
-    <>
-      <div className="d-flex">
-        <div className="mx-5">
-          <h3>Add Todo List</h3>
-          <div className="d-flex gap-3 align-items-center">
-            <input
-              className="border"
-              type="text"
-              placeholder="Enter todo item"
-              value={addToDo}
-              onChange={(e) => {
-                setAddToDo(e.target.value);
-              }}
-            />
-            <button
-              onClick={() => {
-                handleToDo();
-              }}
-              className="btn btn-primary"
-            >
-              Add
-            </button>
-          </div>
-        </div>
-        <div>
-          <h3 className="mx-5">Todo List</h3>
-          <div>
-            {todoList.map((item, index) => {
-              return (
-                <div key={index} className="d-flex gap-3 align-items-center">
-                  <input type="checkbox" value={item} onClick={() => handleComplite(item)} />
-                  <p>{item}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className="mx-5">
-            <div className="d-flex gap-4">
+// const addTodo = createSlice({
+//   name: "Todo",
+//   initialState: {
+//     todoList: [] as string[],
+//   },
+//   reducers: {
+//     add: (state, action) => {
+//       state.todoList.push(action.payload);
+//     },
+//     remove: (state, action) => {
+//       state.todoList = state.todoList.filter(
+//         ( index) => index !== action.payload,
+//       );
+//     },
+//   },
+// });
 
-          <h3>Complite Todo List</h3>
-          <button className="btn btn-success" onClick={() => setCompliteTodoList([])}>clear</button>
-            </div>
-          <div className=" gap-3 align-items-center">
-            {compliteTodoList.map((item, index) => {
-              return (
-                <>
-                <div key={index} className="d-flex gap-3 align-items-center">
-                  <input checked type="checkbox" value={item} onClick={() => handleCompliteReset(item)}  />
-                  <del>{item}</del>
-                </div><br />
-                </>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+// export const { add, remove } = addTodo.actions;
 
-export default TodoSlice;
+// export default addTodo.reducer;import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface Todo {
+  id: number;
+  text: string;
+  completed: boolean;
+}
 
+const initialState: Todo[] = [];
 
-// user.email=darshak.netsol@gmail.com
-// user.name=Darshak
+const todoSlice = createSlice({
+  name: "todos",
+  initialState,
+  reducers: {
+    addTodo: (state , action: PayloadAction<string>) => {
+      state.push({
+        id: Date.now(),
+        text: action.payload,
+        completed: false,
+      });
+    },
+    removeTodo: (state, action: PayloadAction<number>) => {
+      return state.filter(todo => todo.id !== action.payload);
+    },
+    toggleTodo: (state, action: PayloadAction<number>) => {
+      const todo = state.find(t => t.id === action.payload);
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
+    },
+  },
+});
+
+export const { addTodo, removeTodo, toggleTodo } = todoSlice.actions;
+export default todoSlice.reducer;

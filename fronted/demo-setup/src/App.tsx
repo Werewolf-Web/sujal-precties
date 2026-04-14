@@ -4,6 +4,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import RegisterPage from "./auth/page/register/RegisterPage";
 import LoginPage from "./auth/page/login/LoginPage";
 import UserTablePage from "./user/page/table/UserTablePage";
@@ -12,11 +14,12 @@ import Settings from "./testing/Settings";
 import Profile from "./testing/Profile";
 import Home from "./testing/Home";
 import Counter from "./features/counter/Counter";
-import TodoSlice from "./features/todo-store/TodoSlice";
+import Todo from "./features/todo-store/Todo";
 
 const App = () => {
   return (
     <Router>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Navigate to="/register" />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -28,7 +31,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/home" element={<Home />} />
         <Route path="/Counter" element={<Counter/>} />
-        <Route path="/todo" element={<TodoSlice/>}/>
+        <Route path="/todo" element={<Todo/>}/>
       </Routes>
     </Router>
   );

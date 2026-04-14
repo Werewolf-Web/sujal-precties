@@ -7,6 +7,8 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { toast } from "react-toastify/unstyled";
+import InputType from "../../../common-components/common-input-type/InputType";
 
 const UserTablePage = () => {
   const navigate = useNavigate();
@@ -40,13 +42,16 @@ const UserTablePage = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">User Table</h1>
+      <h1 className="text-3xl font-bold mb-6 ">User Table</h1>
+      <div className="d-flex items-center justify-between mb-4 me-4 gap-5">
+
       <ButtonPrimary
         title="Back to Register"
         onClick={() => navigate("/register")}
         className="mb-4 px-4 py-2 text-sm"
-      />
-
+        />
+    <input type="search" placeholder="Search by name..." className="border border-slate-200" />
+        </div>
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-slate-50 border-b border-slate-200">
