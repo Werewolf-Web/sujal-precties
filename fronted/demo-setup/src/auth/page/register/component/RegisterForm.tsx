@@ -1,49 +1,46 @@
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import InputType from "../../../../common-components/common-input-type/InputType";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonPrimary from "../../../../common-components/common-button/ButtonPrimary";
+import InputType from "../../../../common-components/common-input-type/InputType";
 
 const RegisterForm = () => {
-
   const [formData, setFormData] = useState({
-    id:new Date().getTime().toString(),
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    is_active: false
+    id: new Date().getTime().toString(),
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    is_active: false,
   });
   const navigate = useNavigate();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const res = await fetch("http://localhost:4000/register", {
+    await fetch("http://localhost:4000/register", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     });
-    const data = await res.json();
-    console.log(data);
+    // const data = await res.json();
+    // console.log(data);
 
     // Reset form and generate NEW ID for next registration
     setFormData({
       id: new Date().getTime().toString(),
-      fullName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      is_active: false
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      is_active: false,
     });
   };
-
-
 
   const handleChange = (e: any) => {
     const { id, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [id]: type === "checkbox" ? checked : value
+      [id]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -54,9 +51,10 @@ const RegisterForm = () => {
           <h1 className="text-3xl font-bold bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             Create Account
           </h1>
-          <p className="text-slate-500 text-sm">Join us and start your journey today</p>
+          <p className="text-slate-500 text-sm">
+            Join us and start your journey today
+          </p>
         </div>
-
         <form onSubmit={handleSubmit} className="space-y-5">
           <InputType
             id="fullName"
@@ -93,24 +91,21 @@ const RegisterForm = () => {
               onChange={handleChange}
             />
           </div>
-          <div >
+          <div>
             <input
               type="checkbox"
               id="is_active"
               checked={formData.is_active}
               onChange={handleChange}
             />
-            <label > is active </label>
+            <label> is active </label>
           </div>
-
           <ButtonPrimary
             title="Create Account"
             type="submit"
             className="w-full"
           />
-
         </form>
-       
         {/* <button
           className="
             py-3.5 px-4 rounded-xl
@@ -122,11 +117,13 @@ const RegisterForm = () => {
         >
           call get api
         </button> */}
-
         <div className="text-center pt-2">
           <p className="text-slate-500 text-sm">
-            Already have an account?{' '}
-            <Link to="/login" className="text-blue-600 font-semibold hover:underline transition-all">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="text-blue-600 font-semibold hover:underline transition-all"
+            >
               Log in
             </Link>
           </p>
@@ -137,11 +134,7 @@ const RegisterForm = () => {
           className="w-full"
         />
       </div>
-      
-      <div>
-
-
-      </div>
+      <div></div>
     </>
   );
 };

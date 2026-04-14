@@ -24,11 +24,11 @@ console.log("---------------------")
 });
 
 // ------------------------             👉 Register store data in API
+
+
 app.get("/user",(req,res)=>{
     res.json(userData);
 })
-
-
 
 
 // ------------------------             👉 Register get id in API
