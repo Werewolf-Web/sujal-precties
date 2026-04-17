@@ -82,8 +82,12 @@ const RegisterDataUpdate = () => {
     return (
         <>
             {editData && (
-                <div key={editData?.id}>
-                    <div className="p-8">
+<div
+  key={editData?.id}
+  className="w-full h-screen flex flex-col items-center justify-center"
+>
+  <div className="w-1/2 bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
+  
                         <h1 className="text-3xl font-bold mb-6">User Table</h1>
                         <form onSubmit={handleSubmit} >
                             <div className="w-69 mb-5">

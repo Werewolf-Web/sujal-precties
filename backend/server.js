@@ -97,7 +97,17 @@ app.delete("/user/:id", (req, res) => {
 });
 
 
+// --------------------------------      search api   
 
+// app.search("/search",(req,res)=>{
+  // const {q} = req.query;
+  // const searchResults = userData.filter(user =>
+    // user.fullName.toLowerCase().includes(q.toLowerCase()) ||
+    // user.email.toLowerCase().includes(q.toLowerCase())
+  // );
+  // res.json(searchResults);
+// }
+// // )
 
 
 // --------------------------------                 👉 Server start
